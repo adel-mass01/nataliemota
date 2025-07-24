@@ -1,0 +1,16 @@
+{
+  "name": "firstthemeadel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "watch": "sass assets/scss/style.scss assets/css/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "sass": "^1.89.2"
+  }
+}
+
