@@ -1,9 +1,8 @@
 <footer class="site-footer">
-    <div class="container">
-        <!-- Le texte du footer -->
-        <p>&copy; <?php echo date('Y'); ?> - <?php bloginfo('name'); ?>. Tous droits réservés.</p>
+    <div class="footer-style">
+       
             <!-- MENU FOOTER -->
-        <nav class="main-navigation">
+        <nav class="main-navigation-footer">
             <?php
                 wp_nav_menu([
                     'theme_location' => 'main_footer', // Nom du menu (déclaré dans functions.php)
@@ -15,6 +14,7 @@
         <!-- Affiche l’année actuelle automatiquement avec le nom du site -->
     </div>
 </footer>
+<?php get_template_part('templates_part/contact-modal'); ?>
 
 <?php wp_footer(); ?>
 <!-- Très important : WordPress insère ici les fichiers JS (ex : modale, plugin, etc.) -->

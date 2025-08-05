@@ -1,48 +1,44 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
-<!-- Ceci est la balise HTML principale. `language_attributes()` permet d’ajouter automatiquement des attributs comme `lang="fr"` -->
-
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
-    <!-- Définit l’encodage du site, généralement "UTF-8" -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Permet au site d’être responsive (adapté à tous les écrans) -->
-
     <title>
-        
-       <?php bloginfo('name'); ?> - <?php echo is_front_page() ? get_bloginfo('description') : get_the_title(); ?>
-
+        <?php bloginfo('name'); ?> - <?php echo is_front_page() ? get_bloginfo('description') : get_the_title(); ?>
     </title>
-    <!-- Affiche le nom du site + soit la description (si on est sur la page d’accueil), soit le titre de la page -->
-
     <?php wp_head(); ?>
-    <!-- Très important : WordPress insère ici tous les styles, scripts et plugins nécessaires -->
 </head>
 
 <body <?php body_class(); ?>>
-<!-- `body_class()` ajoute des classes dynamiques sur le body (ex : page-home, single-post...) -->
 
 <header class="site-header">
-    <div class="container">
-        <!-- LOGO DU SITE -->
+    <div class="container header-style">
+
+        <!-- ✅ LOGO DYNAMIQUE -->
         <div class="site-logo">
-            <a href="<?php echo home_url(); ?>">
-                <!-- `home_url()` retourne l’URL de la page d’accueil -->
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.png" alt="<?php bloginfo('name'); ?>">
-                
+            <a href="<?php echo esc_url(home_url('/')); ?>">
+                <?php
+                // Si un logo personnalisé est défini dans l’admin
+                if (function_exists('the_custom_logo') && has_custom_logo()) {
+                    the_custom_logo(); // ✅ Natif WordPress : insère automatiquement le logo
+                } else {
+                    // Sinon, on affiche le nom du site
+                    echo '<h1>' . get_bloginfo('name') . '</h1>';
+                }
+                ?>
             </a>
         </div>
 
-        <!-- MENU PRINCIPAL -->
+        <!-- ✅ MENU PRINCIPAL -->
         <nav class="main-navigation">
             <?php
-                wp_nav_menu([
-                    'theme_location' => 'main_menu', // Nom du menu (déclaré dans functions.php)
-                    'container' => false, // On ne veut pas de balise <div> autour du menu
-                    'menu_class' => 'main-menu' // Classe CSS ajoutée à la balise <ul>
-                ]);
+            wp_nav_menu([
+                'theme_location' => 'main_menu',  // ✅ Emplacement déclaré dans functions.php
+                'container' => false,             // ❌ Pas de <div> automatique autour
+                'menu_class' => 'main-menu'       // ✅ Classe CSS ajoutée au <ul>
+            ]);
             ?>
         </nav>
+
     </div>
 </header>
