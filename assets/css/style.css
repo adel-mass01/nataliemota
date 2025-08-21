@@ -1,8 +1,25 @@
-/* Menu principal */
+@charset "UTF-8";
+/* Reset basique */
+body {
+  margin: 0;
+}
+
 ul, ol {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+/* Header sticky au-dessus de l’overlay */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.6);
+  background: #fff;
 }
 
 .container {
@@ -19,15 +36,28 @@ ul, ol {
   align-items: center;
 }
 
+.main-menu, .main-footer {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+}
+
+.site-logo img {
+  width: 216px;
+  height: auto;
+}
+
+/* Liens (CSS pur, pas de &::after) */
 .main-menu a,
 .main-footer a {
   position: relative;
   font-family: "Space Mono", monospace;
   font-weight: 400;
-  color: black;
+  color: #000;
   text-decoration: none;
   font-size: 16px;
 }
+
 .main-menu a::after,
 .main-footer a::after {
   content: "";
@@ -36,181 +66,266 @@ ul, ol {
   bottom: -2px;
   width: 0;
   height: 2px;
-  background-color: black;
+  background: #000;
   transition: width 0.3s ease;
 }
+
 .main-menu a:hover::after,
 .main-footer a:hover::after {
   width: 100%;
 }
 
+/* Hamburger (caché en desktop, FLEX en mobile) */
+.hamburger-menu {
+  display: none;
+  height: 44px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: #000;
+}
+
+.hamburger-menu .bar {
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  display: block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* transformation en croix quand ouvert */
+.hamburger-menu.is-open .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.is-open .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.is-open .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Overlay plein écran SOUS le header (pour réutiliser le même bouton) */
+.menu-overlay {
+  display: none;
+}
+
+.menu-overlay.is-active {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 900;
+}
+
+/* Contenu de l’overlay centré au milieu */
+.menu-overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Menu dans l’overlay */
+.mobile-menu a {
+  position: relative;
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  color: #fff;
+  text-decoration: none;
+  font-size: 40px;
+}
+
+.mobile-menu a:hover {
+  color: red;
+  transition: color 0.3s ease;
+}
+
+/* Footer */
 .footer-style {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 1px solid #000;
+  padding: 10px 0;
 }
 
-.main-menu,
-.main-footer {
-  display: flex;
-  gap: 2rem;
+/* Responsive */
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: flex;
+  } /* garder FLEX, pas block */
+  .main-menu {
+    display: none;
+  }
+}
+/* Optionnel : bloque le scroll quand le menu est ouvert (ajoute .no-scroll au <body> en JS) */
+.no-scroll {
+  overflow: hidden;
 }
 
-.site-logo img {
-  width: 216px;
-  height: auto;
-}
-
+/* ==== Poppins ==== */
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Light.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-LightItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-LightItalic.woff2") format("woff2");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Black.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-ExtraLight.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-ExtraLight.woff2") format("woff2");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-MediumItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-MediumItalic.woff2") format("woff2");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-SemiBold.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Regular.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Medium.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-ExtraBold.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-ExtraBold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-ExtraLightItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-ExtraLightItalic.woff2") format("woff2");
   font-weight: 200;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-BoldItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-BoldItalic.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Italic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Thin.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Thin.woff2") format("woff2");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-Bold.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-SemiBoldItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-SemiBoldItalic.woff2") format("woff2");
   font-weight: 600;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-BlackItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-BlackItalic.woff2") format("woff2");
   font-weight: 900;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-ExtraBoldItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-ExtraBoldItalic.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Poppins";
-  src: url("Poppins-ThinItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/Poppins-ThinItalic.woff2") format("woff2");
   font-weight: 100;
   font-style: italic;
   font-display: swap;
 }
+/* ==== Space Mono ==== */
 @font-face {
   font-family: "Space Mono";
-  src: url("SpaceMono-Bold.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/SpaceMono-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Space Mono";
-  src: url("SpaceMono-Regular.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/SpaceMono-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Space Mono";
-  src: url("SpaceMono-BoldItalic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/SpaceMono-BoldItalic.woff2") format("woff2");
   font-weight: bold;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Space Mono";
-  src: url("SpaceMono-Italic.woff2") format("woff2");
+  src: url("../fonts-nathaliemota/SpaceMono-Italic.woff2") format("woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -231,17 +346,19 @@ ul, ol {
   position: absolute;
   inset: 0;
   z-index: 0;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(15px);
 }
 
 .modal-content {
   position: relative;
   z-index: 1;
-  width: 597px;
-  height: 669px;
+  max-width: 597px;
+  height: auto;
+  width: 60vw;
   background: #fff;
   border: 5px solid #000;
-  padding: 8rem 2rem 2rem 1rem;
+  padding-left: 4px;
+  padding-right: 4px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -252,20 +369,12 @@ ul, ol {
   overflow: auto;
 }
 
-.modal-content label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
-  display: block;
-  align-self: flex-start;
-  font-family: "Space Mono", monospace;
-}
-
+/* ====== CHANGEMENT ICI ====== */
+/* px = plafond ; base responsive en vw/vh */
 .modal-content input,
 .modal-content .message-modal,
 .modal-content .btn-modal {
-  width: 100%;
-  max-width: 500px;
+  width: min(100%, 90vw, 500px); /* 500px = max, mais s’adapte au viewport et au conteneur */
   padding: 1rem;
   border: 1px solid #000;
   border-radius: 0;
@@ -276,9 +385,19 @@ ul, ol {
   color: #000;
 }
 
+/* textarea: hauteur responsive avec plafond 150px */
 .modal-content .message-modal {
-  height: 150px;
+  height: min(35vh, 150px); /* 150px = max, 35vh s’adapte sur petits écrans */
   resize: none;
+}
+
+.modal-content label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  display: block;
+  align-self: flex-start;
+  font-family: "Space Mono", monospace;
 }
 
 .modal-content .btn-modal {
@@ -293,6 +412,182 @@ ul, ol {
 }
 .modal-content .btn-modal:hover {
   background: #bfbfbf !important;
+}
+
+.single-photo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-top: 40px;
+}
+
+.content-header-photo {
+  display: flex;
+  gap: 40px; /* espace entre les 2 colonnes */
+}
+
+.photo-info {
+  flex: 1;
+  font-family: "Space Mono";
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* pousse tout le contenu vers le bas */
+}
+
+.photo-image {
+  flex: 1;
+}
+
+.photo-title {
+  font-family: "Space Mono";
+  font-size: 60px;
+  font-weight: 400;
+  margin: 0;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.photo-image img {
+  width: 100%;
+  height: 90vh;
+  object-fit: cover; /* remplit bien le bloc */
+  max-height: 900px;
+}
+
+.contact-box {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  border-top: black 1px solid;
+  padding-top: 63px;
+}
+
+.btn-contact-single {
+  background-color: #D8D8D8;
+  padding: 12px 24px;
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  width: clamp(290px, 24vw, 290px);
+}
+
+.btn-contact-single:hover {
+  background-color: black;
+  color: white;
+  transition: ease-in-out 0.3s;
+}
+
+.contact-box p {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 300;
+}
+
+.footer-photo {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  border-bottom: black 1px solid;
+  padding-bottom: 14px;
+}
+
+.thumbnail-preview img {
+  width: 90px;
+  height: auto;
+  object-fit: cover;
+}
+
+.thumbnail-preview {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-link:hover .thumbnail-preview {
+  opacity: 1;
+  visibility: visible;
+}
+
+.photo-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Section "Vous aimerez aussi" */
+.similar-photos {
+  margin-bottom: 70px;
+  margin-top: 70px;
+}
+
+.similar-photos h2 {
+  font-family: "Space Mono", monospace;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 65vh;
+  object-fit: cover;
+  max-width: 600px;
+}
+
+/* Responsive Styles tablette et écran moyen  */
+@media (max-width: 800px) {
+  .content-header-photo {
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .photo-image img {
+    height: 50vh;
+    max-height: 560px;
+  }
+  .footer-photo {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .contact-box {
+    gap: 24px;
+    flex-direction: column;
+  }
+  .photo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+  .photo-image {
+    margin-bottom: 30px;
+  }
+  .photo-info {
+    align-items: center;
+    text-align: center;
+  }
+  .photo-navigation {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
