@@ -14,7 +14,7 @@
         <!-- Affiche l’année actuelle automatiquement avec le nom du site -->
     </div>
 </footer>
-<?php get_template_part('templates_part/contact-modal'); ?>
+<?php get_template_part('template-parts/contact-modal'); ?>
 
 <?php wp_footer(); ?>
 <!-- Très important : WordPress insère ici les fichiers JS (ex : modale, plugin, etc.) -->
