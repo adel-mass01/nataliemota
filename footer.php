@@ -5,19 +5,62 @@
         <nav class="main-navigation-footer">
             <?php
                 wp_nav_menu([
-                    'theme_location' => 'main_footer', // Nom du menu (déclaré dans functions.php)
-                    'container' => false, // On ne veut pas de balise <div> autour du menu
-                    'menu_class' => 'main-footer' // Classe CSS ajoutée à la balise <ul>
+                    'theme_location' => 'main_footer', 
+                    'container' => false, 
+                    'menu_class' => 'main-footer' 
                 ]);
             ?>
         </nav>
-        <!-- Affiche l’année actuelle automatiquement avec le nom du site -->
+        
     </div>
+
+
+    <!-- LIGHTBOX -->
+
+<div class="lightbox">
+     <button class="lightbox__close" aria-label="fermer">X</button>
+
+
+     <div class="lightbox__container">
+    
+ <img src="">
+
+
+
+
+</div>
+
+
+
+<div class="lightbox__buttons">
+      <button class="lightbox__next">suivant
+        <img  class="fleche_next" alt="" src="<?php echo esc_url (get_template_directory_uri() . '/assets/img/arrow-right.svg'); ?>">
+      </button>
+
+
+       <button class="lightbox__prev">
+        <img class="fleche_prev" alt="" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/arrow-left.svg'); ?>">précedent
+      </button>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </footer>
 <?php get_template_part('template-parts/contact-modal'); ?>
 
 <?php wp_footer(); ?>
-<!-- Très important : WordPress insère ici les fichiers JS (ex : modale, plugin, etc.) -->
+
 
 </body>
 </html>
