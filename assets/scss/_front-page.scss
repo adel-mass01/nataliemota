@@ -1,0 +1,218 @@
+/*  SECTION / BANNIÈRE  */
+.section-photo {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 2rem;
+}
+
+.banner-img {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-banner-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  font-size: 5rem;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  text-stroke: 2px #fff;
+}
+
+.grid-photo-home {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-photo-home .photo-card {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.grid-photo-home .photo-card__link,
+.grid-photo-home .photo-card__img {
+  position: absolute;
+  inset: 0;
+}
+
+.grid-photo-home .photo-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*  FILTRES dans la même grille */
+.filtres-photo {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 8px;
+}
+
+.filtres-gauche {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-self: start;
+}
+
+.filtre-droite {
+  display: grid;
+  justify-items: end;
+  align-self: start;
+}
+
+.filtres-gauche .choices {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+.filtre-droite .choices {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 50% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+.filtres-photo .choices__inner {
+  display: flex !important;
+  align-items: center !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 40px 0 16px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+  border-radius: 6px !important;
+  color: #000 !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+
+.filtres-photo .choices__list--single,
+.filtres-photo .choices__item {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  color: #000 !important;
+}
+
+.filtres-photo .choices::after {
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.choices__list .choices__item--choice:hover,
+.choices__list .choices__item--choice.is-highlighted {
+  background: #E00000 !important;
+  color: #fff !important;
+  cursor: pointer !important;
+}
+
+.choices__list--dropdown .choices__item.choices__placeholder {
+  display: none !important;
+}
+
+.choices__item-select-text {
+  display: none !important;
+}
+
+.choices__item--choice::after {
+  content: none !important;
+}
+
+.filtres-photo .choices__item.choices__placeholder {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+/*  BOUTON "CHARGER PLUS"  */
+.charger-plus {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.btn-charger-plus {
+  background: #D8D8D8;
+  padding: 12px 24px;
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  width: clamp(290px, 24vw, 290px);
+  transition: background-color .3s ease-in-out, color .3s ease-in-out;
+}
+
+.btn-charger-plus:hover {
+  background: #000;
+  color: #fff;
+}
+
+.filtres-photo .choices__list--dropdown {
+  z-index: 99999999 !important;
+}
+
+/*  Mobile */
+
+
+@media (max-width: 768px) {
+  .grid-photo-home {
+    grid-template-columns: 1fr;
+  }
+
+  .filtres-photo {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .filtres-gauche {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .filtre-droite {
+    justify-items: stretch;
+  }
+
+  .filtre-droite .choices {
+    width: 100% !important;
+  }
+
+  .hero-text {
+    font-size: 2.2rem;
+  }
+}

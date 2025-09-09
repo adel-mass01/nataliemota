@@ -1,16 +1,21 @@
 @charset "UTF-8";
-/* Reset basique */
 body {
   margin: 0;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Header sticky au-dessus de l’overlay */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -18,7 +23,7 @@ ul, ol {
   display: flex;
   align-items: center;
   height: 70px;
-  box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.16);
   background: #fff;
 }
 
@@ -36,7 +41,8 @@ ul, ol {
   align-items: center;
 }
 
-.main-menu, .main-footer {
+.main-menu,
+.main-footer {
   display: flex;
   gap: 2rem;
   flex-direction: row;
@@ -47,7 +53,6 @@ ul, ol {
   height: auto;
 }
 
-/* Liens (CSS pur, pas de &::after) */
 .main-menu a,
 .main-footer a {
   position: relative;
@@ -75,7 +80,6 @@ ul, ol {
   width: 100%;
 }
 
-/* Hamburger (caché en desktop, FLEX en mobile) */
 .hamburger-menu {
   display: none;
   height: 44px;
@@ -99,7 +103,6 @@ ul, ol {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* transformation en croix quand ouvert */
 .hamburger-menu.is-open .bar:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
@@ -112,7 +115,6 @@ ul, ol {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Overlay plein écran SOUS le header (pour réutiliser le même bouton) */
 .menu-overlay {
   display: none;
 }
@@ -120,12 +122,15 @@ ul, ol {
 .menu-overlay.is-active {
   display: block;
   position: fixed;
-  inset: 0;
-  background: #000;
+  top: 70px;
+  left: 0;
+  right: 0;
+  height: calc(100dvh - 70px);
+  background: #E00000;
   z-index: 900;
+  overflow: auto;
 }
 
-/* Contenu de l’overlay centré au milieu */
 .menu-overlay-content {
   position: absolute;
   top: 50%;
@@ -136,22 +141,32 @@ ul, ol {
   justify-content: center;
 }
 
-/* Menu dans l’overlay */
+.mobile-menu {
+  text-align: center;
+}
+
+.mobile-menu li + li {
+  margin-top: 32px;
+}
+
 .mobile-menu a {
   position: relative;
+  display: block;
   font-family: "Space Mono", monospace;
   font-weight: 400;
   color: #fff;
   text-decoration: none;
   font-size: 40px;
-}
-
-.mobile-menu a:hover {
-  color: red;
+  line-height: 1.2;
+  padding: 6px 0;
+  text-transform: uppercase;
   transition: color 0.3s ease;
 }
 
-/* Footer */
+.mobile-menu a:hover {
+  color: #000;
+}
+
 .footer-style {
   display: flex;
   justify-content: center;
@@ -160,21 +175,27 @@ ul, ol {
   padding: 10px 0;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .hamburger-menu {
     display: flex;
-  } /* garder FLEX, pas block */
+  }
   .main-menu {
     display: none;
   }
+  .footer-style {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .main-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .custom-logo {
+    max-width: 120px;
+  }
 }
-/* Optionnel : bloque le scroll quand le menu est ouvert (ajoute .no-scroll au <body> en JS) */
-.no-scroll {
-  overflow: hidden;
-}
-
-/* ==== Poppins ==== */
 @font-face {
   font-family: "Poppins";
   src: url("../fonts-nathaliemota/Poppins-Light.woff2") format("woff2");
@@ -301,7 +322,6 @@ ul, ol {
   font-style: italic;
   font-display: swap;
 }
-/* ==== Space Mono ==== */
 @font-face {
   font-family: "Space Mono";
   src: url("../fonts-nathaliemota/SpaceMono-Bold.woff2") format("woff2");
@@ -369,12 +389,10 @@ ul, ol {
   overflow: auto;
 }
 
-/* ====== CHANGEMENT ICI ====== */
-/* px = plafond ; base responsive en vw/vh */
 .modal-content input,
 .modal-content .message-modal,
 .modal-content .btn-modal {
-  width: min(100%, 90vw, 500px); /* 500px = max, mais s’adapte au viewport et au conteneur */
+  width: min(100%, 90vw, 500px);
   padding: 1rem;
   border: 1px solid #000;
   border-radius: 0;
@@ -385,9 +403,8 @@ ul, ol {
   color: #000;
 }
 
-/* textarea: hauteur responsive avec plafond 150px */
 .modal-content .message-modal {
-  height: min(35vh, 150px); /* 150px = max, 35vh s’adapte sur petits écrans */
+  height: min(35vh, 150px);
   resize: none;
 }
 
@@ -414,16 +431,33 @@ ul, ol {
   background: #bfbfbf !important;
 }
 
+.btn-contact-single {
+  background: #D8D8D8;
+  padding: 12px 24px;
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  width: clamp(290px, 24vw, 290px);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.btn-contact-single:hover {
+  background: #000;
+  color: #fff;
+}
+
 .single-photo-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   padding: 0 2rem;
-  margin-top: 40px;
 }
 
 .content-header-photo {
   display: flex;
-  gap: 40px; /* espace entre les 2 colonnes */
+  gap: 40px;
 }
 
 .photo-info {
@@ -432,11 +466,7 @@ ul, ol {
   font-size: 14px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* pousse tout le contenu vers le bas */
-}
-
-.photo-image {
-  flex: 1;
+  justify-content: flex-end;
 }
 
 .photo-title {
@@ -448,53 +478,22 @@ ul, ol {
   text-transform: uppercase;
 }
 
+.photo-image {
+  flex: 1;
+}
+
 .photo-image img {
   width: 100%;
   height: 90vh;
-  object-fit: cover; /* remplit bien le bloc */
   max-height: 900px;
-}
-
-.contact-box {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-  border-top: black 1px solid;
-  padding-top: 63px;
-}
-
-.btn-contact-single {
-  background-color: #D8D8D8;
-  padding: 12px 24px;
-  font-family: "Space Mono", monospace;
-  font-weight: 400;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  width: clamp(290px, 24vw, 290px);
-}
-
-.btn-contact-single:hover {
-  background-color: black;
-  color: white;
-  transition: ease-in-out 0.3s;
-}
-
-.contact-box p {
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  margin: 0;
-  font-weight: 300;
+  object-fit: cover;
 }
 
 .footer-photo {
   display: flex;
   justify-content: space-between;
-  margin: 0;
-  padding: 0;
   align-items: center;
-  border-bottom: black 1px solid;
+  border-bottom: 1px solid #000;
   padding-bottom: 14px;
 }
 
@@ -527,10 +526,8 @@ ul, ol {
   align-items: center;
 }
 
-/* Section "Vous aimerez aussi" */
 .similar-photos {
-  margin-bottom: 70px;
-  margin-top: 70px;
+  margin: 70px 0;
 }
 
 .similar-photos h2 {
@@ -541,19 +538,28 @@ ul, ol {
 
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
   margin-top: 40px;
 }
 
-.photo-grid img {
-  width: 100%;
-  height: 65vh;
-  object-fit: cover;
-  max-width: 600px;
+.photo-grid .photo-card {
+  aspect-ratio: 1/1;
+  overflow: hidden;
 }
 
-/* Responsive Styles tablette et écran moyen  */
+.photo-grid .photo-card__link,
+.photo-grid .photo-card__img {
+  position: absolute;
+  inset: 0;
+}
+
+.photo-grid .photo-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @media (max-width: 800px) {
   .content-header-photo {
     flex-direction: column-reverse;
@@ -568,26 +574,403 @@ ul, ol {
     align-items: stretch;
     gap: 16px;
   }
-  .contact-box {
-    gap: 24px;
-    flex-direction: column;
-  }
-  .photo-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: center;
-  }
-  .photo-image {
-    margin-bottom: 30px;
-  }
-  .photo-info {
-    align-items: center;
-    text-align: center;
-  }
   .photo-navigation {
     display: none;
   }
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+  .photo-title {
+    font-size: 30px;
+  }
+}
+/*  SECTION / BANNIÈRE  */
+.section-photo {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding: 0 2rem;
+}
+
+.banner-img {
+  width: 100%;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-banner-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Space Mono", monospace;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  font-size: 5rem;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
+  text-stroke: 2px #fff;
+}
+
+.grid-photo-home {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.grid-photo-home .photo-card {
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.grid-photo-home .photo-card__link,
+.grid-photo-home .photo-card__img {
+  position: absolute;
+  inset: 0;
+}
+
+.grid-photo-home .photo-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*  FILTRES dans la même grille */
+.filtres-photo {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 8px;
+}
+
+.filtres-gauche {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-self: start;
+}
+
+.filtre-droite {
+  display: grid;
+  justify-items: end;
+  align-self: start;
+}
+
+.filtres-gauche .choices {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+.filtre-droite .choices {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 50% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  flex: 0 0 auto !important;
+}
+
+.filtres-photo .choices__inner {
+  display: flex !important;
+  align-items: center !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 40px 0 16px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+  border-radius: 6px !important;
+  color: #000 !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+
+.filtres-photo .choices__list--single,
+.filtres-photo .choices__item {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+  color: #000 !important;
+}
+
+.filtres-photo .choices::after {
+  right: 14px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.choices__list .choices__item--choice:hover,
+.choices__list .choices__item--choice.is-highlighted {
+  background: #E00000 !important;
+  color: #fff !important;
+  cursor: pointer !important;
+}
+
+.choices__list--dropdown .choices__item.choices__placeholder {
+  display: none !important;
+}
+
+.choices__item-select-text {
+  display: none !important;
+}
+
+.choices__item--choice::after {
+  content: none !important;
+}
+
+.filtres-photo .choices__item.choices__placeholder {
+  color: #000 !important;
+  opacity: 1 !important;
+}
+
+/*  BOUTON "CHARGER PLUS"  */
+.charger-plus {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.btn-charger-plus {
+  background: #D8D8D8;
+  padding: 12px 24px;
+  font-family: "Space Mono", monospace;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  width: clamp(290px, 24vw, 290px);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.btn-charger-plus:hover {
+  background: #000;
+  color: #fff;
+}
+
+.filtres-photo .choices__list--dropdown {
+  z-index: 99999999 !important;
+}
+
+/*  Mobile */
+@media (max-width: 768px) {
+  .grid-photo-home {
+    grid-template-columns: 1fr;
+  }
+  .filtres-photo {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .filtres-gauche {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .filtre-droite {
+    justify-items: stretch;
+  }
+  .filtre-droite .choices {
+    width: 100% !important;
+  }
+  .hero-text {
+    font-size: 2.2rem;
+  }
+}
+/* LIGHTBOX */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 34000;
+  display: none;
+}
+
+.lightbox.is-open {
+  display: block;
+}
+
+.lightbox__next,
+.lightbox__prev {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background-color: white;
+  cursor: pointer;
+  z-index: 1;
+  width: 200px;
+  gap: 10px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.lightbox__next {
+  right: 16px;
+}
+
+.lightbox__prev {
+  left: 16px;
+}
+
+.lightbox__next:hover,
+.lightbox__prev:hover {
+  opacity: 1;
+}
+
+.lightbox__close {
+  position: absolute;
+  right: 16px;
+  top: 26px;
+  font-weight: bold;
+  padding: 6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: large;
+  color: white;
+  opacity: 0.9;
+}
+
+.lightbox__close:hover {
+  opacity: 1;
+}
+
+.lightbox__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .lightbox__next,
+  .lightbox__prev {
+    position: static;
+    transform: none;
+    width: auto;
+  }
+  .lightbox__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+}
+/*  CARTE PHOTO  */
+.photo-card {
+  position: relative;
+}
+
+.photo-card__link {
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+
+.photo-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+}
+
+.photo-card:hover .photo-card__overlay {
+  opacity: 1;
+}
+
+.overlay__meta {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.icon_eye_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.icon_fullscreen_container {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.overlay__ref {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.overlay__cat {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.photo-card__overlay .icon_eye,
+.photo-card__overlay .icon_fullscreen {
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */
