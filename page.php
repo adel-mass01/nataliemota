@@ -1,5 +1,5 @@
 <?php 
-// On inclut le haut de page
+
 get_header(); 
 ?>
 
@@ -22,7 +22,7 @@ get_header();
 
     <?php endwhile; else : ?>
 
-        <!-- Message si la page est vide ou introuvable -->
+        
         <p>Page introuvable.</p>
 
     <?php endif; ?>
@@ -30,6 +30,6 @@ get_header();
 </main>
 
 <?php 
-// On inclut le bas de page
+
 get_footer(); 
 ?>

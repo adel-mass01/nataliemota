@@ -2,15 +2,15 @@
 
 
 // Récupération des champs ACF
-$reference = get_field('reference_photo', get_the_ID()) ?: '';
-$type      = get_field('type_photo', get_the_ID()) ?: '';
+$reference = get_field('reference_photo', get_the_ID());
+$type      = get_field('type_photo', get_the_ID()) ;
 
 // Récupération de l'année
 $annee     = get_the_date('Y') ?: '';
 
 // Récupération des taxonomies
-$categories = get_the_terms(get_the_ID(), 'categorie-photo') ?: [];
-$formats    = get_the_terms(get_the_ID(), 'format-photo') ?: []; 
+$categories = get_the_terms(get_the_ID(), 'categorie-photo');
+$formats    = get_the_terms(get_the_ID(), 'format-photo'); 
 
 ?>
 
@@ -138,7 +138,7 @@ $myquery = new WP_Query([
   'tax_query'      => [
     [
       'taxonomy' => 'categorie-photo',
-      'field'    => 'term_id',   // bien "term_id"
+      'field'    => 'term_id',   
       'terms'    => $term_ids,   
     ],
   ],
@@ -154,6 +154,8 @@ if ($myquery->have_posts()): ?>
     </div>
   </section>
 <?php endif; ?>
-<?php wp_reset_postdata(); // Réinitialiser la requête ?>
+<?php wp_reset_postdata();  ?>
 
 </div>
+
+<?php

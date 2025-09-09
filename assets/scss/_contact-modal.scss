@@ -38,12 +38,11 @@ padding-left: 4px;
   overflow: auto;
 }
 
-/* ====== CHANGEMENT ICI ====== */
-/* px = plafond ; base responsive en vw/vh */
+
 .modal-content input,
 .modal-content .message-modal,
 .modal-content .btn-modal {
-  width: min(100%, 90vw, 500px); /* 500px = max, mais s’adapte au viewport et au conteneur */
+  width: min(100%, 90vw, 500px); 
   padding: 1rem;
   border: 1px solid #000;
   border-radius: 0;
@@ -54,9 +53,9 @@ padding-left: 4px;
   color: #000;
 }
 
-/* textarea: hauteur responsive avec plafond 150px */
+
 .modal-content .message-modal {
-  height: min(35vh, 150px); /* 150px = max, 35vh s’adapte sur petits écrans */
+  height: min(35vh, 150px); 
   resize: none;
 }
 
